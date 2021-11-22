@@ -15,7 +15,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class InteresaPK implements Serializable {
 
-    private Long interesado_id;
+    private Long usuario_id;
 
     private Long vivienda_id;
 

@@ -3,17 +3,16 @@ package realEstate.salesianos.triana.dam.realEstate.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import realEstate.salesianos.triana.dam.realEstate.models.Interesa;
-import realEstate.salesianos.triana.dam.realEstate.models.Interesado;
 import realEstate.salesianos.triana.dam.realEstate.models.Vivienda;
 import realEstate.salesianos.triana.dam.realEstate.repositories.InteresaRepository;
 import realEstate.salesianos.triana.dam.realEstate.services.base.BaseService;
-
-import java.util.Optional;
+import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
+import realEstate.salesianos.triana.dam.realEstate.users.services.UserEntityService;
 
 @Service
 public class InteresaService extends BaseService<Interesa, Long, InteresaRepository> {
     @Autowired
-    private InteresadoService interesadoService= new InteresadoService();
+    private UsuarioService usuarioService= new UsuarioService();
     @Autowired
     private ViviendaService viviendaService= new ViviendaService();
 
@@ -29,16 +28,16 @@ public class InteresaService extends BaseService<Interesa, Long, InteresaReposit
 
         //Se consigue una instancia de los objetos con los que trabajaremos.
         Vivienda vivienda = viviendaService.findById(id1).get();
-        Interesado interesado = interesadoService.findById(id2).get();
+        Usuario usuario = usuarioService.findById(id2).get();
         Interesa i1=repositorio.findByViviendaIdAndInteresadoId(id1,id2);
 
         //Usamos los helpers de interesa para borrar a su interesado y su vivienda.
-         i1.removeFromInteresado(interesado);
+         i1.removeFromInteresado(usuario);
          i1.removeFromVivienda(vivienda);
 
          //Actualizamos los servicios de vivienda e interesado.
          viviendaService.save(vivienda);
-         interesadoService.save(interesado);
+         usuarioService.save(usuario);
 
         //Finalmente borramos el interesa en cuestión.
         delete(i1);

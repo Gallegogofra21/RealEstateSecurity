@@ -4,6 +4,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -28,9 +29,9 @@ public class Interesa {
     private  String mensaje;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("interesado_id")
-    @JoinColumn(name = "interesado_id")
-    private Interesado interesado;
+    @MapsId("usuario_id")
+    @JoinColumn(name = "usuario_id")
+    private Usuario interesado;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @MapsId("vivienda_id")
@@ -41,14 +42,14 @@ public class Interesa {
     /*
      HELPERS
      */
-    public void addToInteresado (Interesado i){
+    public void addToInteresado (Usuario i){
         interesado = i;
         if (i.getIntereses() == null){
             i.setIntereses(new ArrayList<>());
             i.getIntereses().add(this);
         }
     }
-    public void removeFromInteresado (Interesado i){
+    public void removeFromInteresado (Usuario i){
         i.getIntereses().remove(this);
         interesado = null;
     }

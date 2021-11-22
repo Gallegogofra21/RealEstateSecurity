@@ -13,18 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import realEstate.salesianos.triana.dam.realEstate.dtos.GetPropietarioConViviendasDto;
-import realEstate.salesianos.triana.dam.realEstate.dtos.GetPropietarioDetailsDto;
 import realEstate.salesianos.triana.dam.realEstate.dtos.GetPropietarioDto;
 import realEstate.salesianos.triana.dam.realEstate.dtos.PropietarioDtoConverter;
-import realEstate.salesianos.triana.dam.realEstate.models.Propietario;
-import realEstate.salesianos.triana.dam.realEstate.repositories.PropietarioRepository;
-import realEstate.salesianos.triana.dam.realEstate.services.PropietarioService;
 import realEstate.salesianos.triana.dam.realEstate.util.PaginationLinksUtil;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/propietario")

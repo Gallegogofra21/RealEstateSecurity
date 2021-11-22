@@ -3,7 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import realEstate.salesianos.triana.dam.realEstate.models.*;
 import realEstate.salesianos.triana.dam.realEstate.services.InmobiliariaService;
-import realEstate.salesianos.triana.dam.realEstate.services.PropietarioService;
+import realEstate.salesianos.triana.dam.realEstate.services.UsuarioService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ public class ViviendaDtoConverter {
    @Autowired
     private  InmobiliariaService inmobiliariaService ;
     @Autowired
-    private PropietarioService propietarioService ;
+    private UsuarioService usuarioService ;
 
     public GetViviendaDto viviendaToGetViviendaDto (Vivienda v){
 
@@ -129,7 +129,7 @@ public class ViviendaDtoConverter {
         result.setTieneAscensor(v.isTieneAscensor());
         result.setTieneGaraje(v.isTieneGaraje());
         result.setInmobiliaria(inmobiliariaService.findById(v.getInmobiliaria().getId()).get());
-        result.setPropietario(propietarioService.findById(v.getPropietario().getId()).get());
+        result.setPropietario(usuarioService.findById(v.getPropietario().getId()).get());
 
         return result;
     }

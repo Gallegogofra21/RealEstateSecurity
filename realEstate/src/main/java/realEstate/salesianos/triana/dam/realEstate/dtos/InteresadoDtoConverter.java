@@ -2,7 +2,7 @@ package realEstate.salesianos.triana.dam.realEstate.dtos;
 
 import org.springframework.stereotype.Component;
 import realEstate.salesianos.triana.dam.realEstate.models.Interesa;
-import realEstate.salesianos.triana.dam.realEstate.models.Interesado;
+
 @Component
 public class InteresadoDtoConverter {
     public Interesado createInteresadoDtoToInteresado(CreateInteresadoInteresaDto c){

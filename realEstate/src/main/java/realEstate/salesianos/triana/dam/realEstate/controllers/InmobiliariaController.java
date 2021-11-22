@@ -19,11 +19,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import realEstate.salesianos.triana.dam.realEstate.dtos.GetInmobiliariaDto;
 import realEstate.salesianos.triana.dam.realEstate.dtos.InmobiliariaDtoConverter;
 import realEstate.salesianos.triana.dam.realEstate.models.Inmobiliaria;
-import realEstate.salesianos.triana.dam.realEstate.models.Propietario;
-import realEstate.salesianos.triana.dam.realEstate.models.Vivienda;
 import realEstate.salesianos.triana.dam.realEstate.services.InmobiliariaService;
 import org.springframework.web.bind.annotation.*;
-import realEstate.salesianos.triana.dam.realEstate.dtos.GetInmobiliariaDto;
 import realEstate.salesianos.triana.dam.realEstate.util.PaginationLinksUtil;
 import realEstate.salesianos.triana.dam.realEstate.services.ViviendaService;
 

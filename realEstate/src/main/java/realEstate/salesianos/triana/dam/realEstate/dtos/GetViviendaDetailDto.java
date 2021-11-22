@@ -4,10 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import realEstate.salesianos.triana.dam.realEstate.models.Inmobiliaria;
-import realEstate.salesianos.triana.dam.realEstate.models.Interesa;
-import realEstate.salesianos.triana.dam.realEstate.models.Interesado;
-import realEstate.salesianos.triana.dam.realEstate.models.Propietario;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import realEstate.salesianos.triana.dam.realEstate.models.Inmobiliaria;
+import realEstate.salesianos.triana.dam.realEstate.models.Interesa;
 import realEstate.salesianos.triana.dam.realEstate.models.Vivienda;
 
 import javax.persistence.*;
@@ -49,11 +50,18 @@ public class Usuario implements UserDetails {
     @OneToMany(mappedBy = "propietario")
     private List<Vivienda> viviendas = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "interesado")
+    private List<Interesa> intereses = new ArrayList<>();
+
     @CreatedDate
     private LocalDateTime createdAt;
 
     @Builder.Default
     private LocalDateTime lastPasswordChangeAt = LocalDateTime.now();
+
+    public Usuario(String nombre, String apellidos) {
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

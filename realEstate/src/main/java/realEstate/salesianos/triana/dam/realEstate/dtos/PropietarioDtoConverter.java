@@ -1,22 +1,17 @@
 package realEstate.salesianos.triana.dam.realEstate.dtos;
 
 import org.springframework.stereotype.Component;
-import realEstate.salesianos.triana.dam.realEstate.models.Propietario;
 import realEstate.salesianos.triana.dam.realEstate.models.Vivienda;
+import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
 
 import java.util.stream.Collectors;
 
 @Component
 public class PropietarioDtoConverter {
 
-    public Propietario createPropietarioDtoToPropietario(GetPropietarioDto c){
-        return new Propietario(
-                c.getNombre(),
-                c.getApellidos()
-        );
-    }
+    
 
-    public GetPropietarioDto propietarioToGetPropietarioDto(Propietario p){
+    public GetPropietarioDto propietarioToGetPropietarioDto(Usuario p){
         int numViviendas = p.getViviendas().size();
         GetPropietarioDto result = new GetPropietarioDto();
         result.setId(p.getId());
@@ -27,7 +22,7 @@ public class PropietarioDtoConverter {
         return result;
     }
 
-    public GetPropietarioConViviendasDto convertPropietarioToGetPropietarioConViviendasDto(Propietario p){
+    public GetPropietarioConViviendasDto convertPropietarioToGetPropietarioConViviendasDto(Usuario p){
         GetPropietarioConViviendasDto dto= new GetPropietarioConViviendasDto(p.getId(), p.getNombre(), p.getApellidos(), p.getDireccion(), p.getEmail(), p.getTelefono(), p.getAvatar(), p.getViviendas().stream().map(this::convertViviendaToGetViviendaSinPropietarioDto).collect(Collectors.toList()));
     return dto;
     }
@@ -43,7 +38,7 @@ public class PropietarioDtoConverter {
 
     }
 
-    public GetPropietarioDetailsDto convertPropietarioToGetPropietarioDetailsDto (Propietario p){
+    public GetPropietarioDetailsDto convertPropietarioToGetPropietarioDetailsDto (Usuario p){
         return GetPropietarioDetailsDto.builder()
                 .id(p.getId())
                 .nombre(p.getNombre())
