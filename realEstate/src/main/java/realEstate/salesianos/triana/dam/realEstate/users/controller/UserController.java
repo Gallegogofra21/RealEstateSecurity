@@ -1,0 +1,30 @@
+package realEstate.salesianos.triana.dam.realEstate.users.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import realEstate.salesianos.triana.dam.realEstate.users.dto.CreateUserDto;
+import realEstate.salesianos.triana.dam.realEstate.users.dto.GetUserDto;
+import realEstate.salesianos.triana.dam.realEstate.users.dto.UserDtoConverter;
+import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
+import realEstate.salesianos.triana.dam.realEstate.users.services.UserEntityService;
+
+@RestController
+@RequiredArgsConstructor
+public class UserController {
+
+    private final UserEntityService userEntityService;
+    private final UserDtoConverter userDtoConverter;
+
+    @PostMapping("/auth/register")
+    public ResponseEntity<GetUserDto> nuevoUsuario (@RequestBody CreateUserDto newUser) {
+        Usuario saved = userEntityService.save(newUser);
+
+        if(saved == null)
+            return ResponseEntity.badRequest().build();
+        else
+            return ResponseEntity.ok(userDtoConverter.convertUsuarioToGetUserDto(saved));
+    }
+}
