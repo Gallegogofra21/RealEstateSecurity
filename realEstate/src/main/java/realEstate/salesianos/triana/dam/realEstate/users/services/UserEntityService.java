@@ -55,4 +55,19 @@ public class UserEntityService extends BaseService<Usuario, Long, UserEntityRepo
             return null;
         }
     }
+
+    public Usuario saveGestor(CreateUserDto newUser) {
+        if(newUser.getPassword().contentEquals(newUser.getPassword2())) {
+            Usuario usuario = Usuario.builder()
+                    .password(passwordEncoder.encode(newUser.getPassword()))
+                    .avatar(newUser.getAvatar())
+                    .nombre(newUser.getNombre())
+                    .email(newUser.getEmail())
+                    .rol(UserRole.GESTOR)
+                    .build();
+            return save(usuario);
+        } else {
+            return null;
+        }
+    }
 }

@@ -36,4 +36,14 @@ public class UserController {
         else
             return ResponseEntity.ok(userDtoConverter.convertUsuarioToGetUserDto(saved));
     }
+
+    @PostMapping("/auth/register/gestor")
+    public ResponseEntity<GetUserDto> nuevoGestor(@RequestBody CreateUserDto newUser) {
+        Usuario saved = userEntityService.saveGestor(newUser);
+
+        if(saved == null || saved.getViviendas() == null)
+            return ResponseEntity.badRequest().build();
+        else
+            return ResponseEntity.ok(userDtoConverter.convertUsuarioToGetUserDto(saved));
+    }
 }
