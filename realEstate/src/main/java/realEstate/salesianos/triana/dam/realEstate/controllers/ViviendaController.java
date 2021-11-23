@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import realEstate.salesianos.triana.dam.realEstate.repositories.ViviendaRepository;
 import realEstate.salesianos.triana.dam.realEstate.services.*;
+import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
+import realEstate.salesianos.triana.dam.realEstate.users.services.UserEntityService;
 import realEstate.salesianos.triana.dam.realEstate.util.PaginationLinksUtil;
 
 
@@ -43,10 +45,10 @@ public class ViviendaController {
     private final InmobiliariaService inmobiliariaService;
       private final ViviendaDtoConverter viviendaDtoConverter;
       private final PaginationLinksUtil paginationLinksUtil;
-      private final InteresadoService interesadoService;
+      private final UserEntityService interesadoService;
       private final InteresaService interesaService;
       private final InteresadoDtoConverter interesadoDtoConverter;
-      private final PropietarioService propietarioService;
+      private final UserEntityService propietarioService;
 
     @Operation(summary = "Se crea una vivienda y si el propietario no existe, también lo crea")
     @ApiResponses(value = {
@@ -179,7 +181,7 @@ public class ViviendaController {
             @ApiResponse(responseCode = "200",
             description = "Se crea un interesado con interes",
             content = {@Content(mediaType = "application/json",
-            schema = @Schema(implementation = Interesado.class))}),
+            schema = @Schema(implementation = Usuario.class))}),
             @ApiResponse(responseCode = "404",
             description = "No se encuentra la vivienda",
             content = @Content),
@@ -196,7 +198,7 @@ public class ViviendaController {
         }
         else {
             Optional<Vivienda> v = viviendaService.findById(id);
-            Interesado interesado = interesadoDtoConverter.createInteresadoDtoToInteresado(dto);
+            Usuario interesado = interesadoDtoConverter.createInteresadoDtoToInteresado(dto);
             Interesa interesa = Interesa.builder()
                     .mensaje(dto.getMensaje())
                     .build();
@@ -214,7 +216,7 @@ public class ViviendaController {
             @ApiResponse(responseCode = "201",
             description = "Se añade correctamente el interesado a la vivienda",
             content = {@Content(mediaType = "application/json",
-            schema = @Schema(implementation = Interesado.class))}),
+            schema = @Schema(implementation = Usuario.class))}),
             @ApiResponse(responseCode = "400",
             description = "Ha introducido datos erroneos",
             content = @Content),
@@ -227,13 +229,13 @@ public class ViviendaController {
                                                                                    @RequestBody CreateInteresadoInteresaVivienda g){
 
         Optional<Vivienda> vivOp = viviendaService.findById(id);
-        Optional<Interesado> inteOp = interesadoService.findById(id2);
+        Optional<Usuario> inteOp = interesadoService.findById(id2);
         if (viviendaService.findById(id).isEmpty() || interesadoService.findById(id2).isEmpty()){
             return ResponseEntity.notFound().build();
         }
         else{
             Vivienda v = vivOp.get();
-            Interesado i = inteOp.get();
+            Usuario i = inteOp.get();
             Interesa interesa = Interesa.builder()
                     .mensaje(g.getMensaje())
                     .build();

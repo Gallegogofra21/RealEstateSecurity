@@ -63,6 +63,9 @@ public class Usuario implements UserDetails {
     public Usuario(String nombre, String apellidos) {
     }
 
+    public Usuario(String nombre, String apellidos, String direccion, String email, String telefono, String avatar) {
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -103,5 +106,8 @@ public class Usuario implements UserDetails {
     public void removeInmobiliaria(Inmobiliaria i) {
         i.getGestores().remove(this);
         this.inmobiliaria = null;
+    }
+
+    public void nullearPropietarioDeViviendas() {
     }
 }

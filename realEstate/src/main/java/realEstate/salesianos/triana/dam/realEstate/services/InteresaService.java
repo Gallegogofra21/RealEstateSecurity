@@ -12,7 +12,7 @@ import realEstate.salesianos.triana.dam.realEstate.users.services.UserEntityServ
 @Service
 public class InteresaService extends BaseService<Interesa, Long, InteresaRepository> {
     @Autowired
-    private UsuarioService usuarioService= new UsuarioService();
+    private UserEntityService usuarioService;
     @Autowired
     private ViviendaService viviendaService= new ViviendaService();
 
