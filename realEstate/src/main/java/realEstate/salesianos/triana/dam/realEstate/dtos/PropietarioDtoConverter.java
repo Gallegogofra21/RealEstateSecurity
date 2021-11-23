@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 @Component
 public class PropietarioDtoConverter {
 
-    
+
 
     public GetPropietarioDto propietarioToGetPropietarioDto(Usuario p){
         int numViviendas = p.getViviendas().size();
