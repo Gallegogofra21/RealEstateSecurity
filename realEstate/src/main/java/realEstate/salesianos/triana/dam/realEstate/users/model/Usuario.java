@@ -8,6 +8,7 @@ import org.hibernate.annotations.NaturalId;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import realEstate.salesianos.triana.dam.realEstate.models.Inmobiliaria;
 import realEstate.salesianos.triana.dam.realEstate.models.Interesa;
@@ -41,10 +42,12 @@ public class Usuario implements UserDetails {
     private String telefono;
     private String avatar;
     private String password;
+
+    @Enumerated(EnumType.STRING)
     private UserRole rol;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "inmobiliaria_id", foreignKey = @ForeignKey(name = "PK_USER_INMOBILIARIA"), nullable = true)
     private Inmobiliaria inmobiliaria;
 
     @OneToMany(mappedBy = "propietario")
@@ -68,32 +71,32 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of(new SimpleGrantedAuthority("ROLE_" + rol.name()));
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     // HELPERS

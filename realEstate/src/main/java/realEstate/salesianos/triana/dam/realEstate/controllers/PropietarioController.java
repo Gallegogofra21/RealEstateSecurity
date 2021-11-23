@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import realEstate.salesianos.triana.dam.realEstate.dtos.GetPropietarioConViviendasDto;
 import realEstate.salesianos.triana.dam.realEstate.dtos.GetPropietarioDto;
 import realEstate.salesianos.triana.dam.realEstate.dtos.PropietarioDtoConverter;
+import realEstate.salesianos.triana.dam.realEstate.users.model.UserRole;
 import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
 import realEstate.salesianos.triana.dam.realEstate.users.services.UserEntityService;
 import realEstate.salesianos.triana.dam.realEstate.util.PaginationLinksUtil;
@@ -33,7 +34,7 @@ public class PropietarioController {
     private final PaginationLinksUtil paginationLinksUtil;
 
 
-    @Operation(summary = "Listar todos los propietarios existentes.")
+    /*@Operation(summary = "Listar todos los propietarios existentes.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Se listan todos los propietarios",
@@ -48,7 +49,7 @@ public class PropietarioController {
             @PageableDefault(size = 10, page = 0) Pageable pageable,
             HttpServletRequest request) {
 
-        Page<Usuario> data = propietarioService.findAll(pageable);
+        Page<Usuario> data = propietarioService.loadUserByRole(UserRole.PROPIETARIO, pageable);
 
         if(data.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -58,9 +59,9 @@ public class PropietarioController {
             UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(request.getRequestURL().toString());
             return ResponseEntity.ok().header("link", paginationLinksUtil.createLinkHeader(result,uriBuilder)).body(result);
         }
-    }
+    }*/
 
-    @Operation(summary = "Obtenemos todos los datos de un propietario con algunos datos de sus viviendas.")
+    /*@Operation(summary = "Obtenemos todos los datos de un propietario con algunos datos de sus viviendas.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Se encuentra el propietario con éxito",
@@ -73,7 +74,7 @@ public class PropietarioController {
     @GetMapping("/{id}")
     public ResponseEntity<GetPropietarioConViviendasDto> findOne(@PathVariable Long id) {
         return ResponseEntity.of(propietarioService.findById(id).map(dtoConverter::convertPropietarioToGetPropietarioConViviendasDto));
-    }
+    }*/
 
     @Operation(summary = "Eliminamos un propietario por su id.")
     @ApiResponses(value = {

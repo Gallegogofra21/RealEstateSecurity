@@ -14,6 +14,7 @@ import java.security.SignatureException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.UUID;
 
 @Log
 @Service
@@ -31,18 +32,22 @@ public class JwtProvider {
 
     private JwtParser parser;
 
-    /*@PostConstruct
+    @PostConstruct
     public void init(){
         parser = Jwts.parserBuilder()
                 .setSigningKey(Keys.hmacShaKeyFor(jwtSecret.getBytes()))
-                .build  ;
-    }*/
+                .build()  ;
+    }
 
     public String generateToken(Authentication authentication) {
 
         Usuario user = (Usuario) authentication.getPrincipal();
 
-        Date tokenExpirationDate = new Date(System.currentTimeMillis() + (jwtLifeInSeconds*1000));
+        Date tokenExpirationDate = Date.from(LocalDateTime
+                .now()
+                .plusSeconds(jwtLifeInSeconds)
+                .atZone(ZoneId.systemDefault())
+                .toInstant());
 
         return Jwts.builder()
                 .signWith(Keys.hmacShaKeyFor(jwtSecret.getBytes()))
@@ -58,9 +63,13 @@ public class JwtProvider {
         return Long.valueOf(parser.parseClaimsJws(token).getBody().getSubject());
     }
 
+    /*public UUID getUserIdFromJwt(String token) {
+        return UUID.fromString(parser.parseClaimsJwt(token).getBody().getSubject();
+    }*/
+
     public boolean validateToken (String token) {
         try {
-            parser.parseClaimsJwt(token);
+            parser.parseClaimsJws(token);
             return true;
         }catch (MalformedJwtException ex) {
             log.info("Token malformado: " + ex.getMessage());
