@@ -18,5 +18,22 @@ public class UserController {
     private final UserEntityService userEntityService;
     private final UserDtoConverter userDtoConverter;
 
-    
+    @PostMapping("/auth/register/admin")
+    public ResponseEntity<GetUserDto> nuevoAdmin(@RequestBody CreateUserDto newUser) {
+        Usuario saved = userEntityService.saveAdmin(newUser);
+
+        if(saved == null)
+            return ResponseEntity.badRequest().build();
+        else
+            return ResponseEntity.ok(userDtoConverter.convertUsuarioToGetUserDto(saved));
+    }
+    @PostMapping("/auth/register/user")
+    public ResponseEntity<GetUserDto> nuevoPropietario (@RequestBody CreateUserDto newUser) {
+        Usuario saved = userEntityService.savePropietario(newUser);
+
+        if(saved == null)
+            return ResponseEntity.badRequest().build();
+        else
+            return ResponseEntity.ok(userDtoConverter.convertUsuarioToGetUserDto(saved));
+    }
 }
