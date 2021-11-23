@@ -25,5 +25,20 @@ public class UserEntityService extends BaseService<Usuario, Long, UserEntityRepo
                 .orElseThrow(()-> new UsernameNotFoundException(email + " no encontrado"));
     }
 
+    public Usuario saveAdmin(CreateUserDto newUser) {
+        if(newUser.getPassword().contentEquals(newUser.getPassword2())) {
+            Usuario usuario = Usuario.builder()
+                    .password(passwordEncoder.encode(newUser.getPassword()))
+                    .avatar(newUser.getAvatar())
+                    .nombre(newUser.getNombre())
+                    .email(newUser.getEmail())
+                    .rol(UserRole.ADMIN)
+                    .build();
+            return save(usuario);
+        } else {
+            return null;
+        }
+    }
+
     
 }
