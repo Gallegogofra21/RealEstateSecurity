@@ -13,4 +13,5 @@ public class GetUserDto {
     private String nombre;
     private String email;
     private String role;
+    private int numViviendas;
 }

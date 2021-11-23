@@ -15,5 +15,6 @@ public class CreateUserDto {
     private String email;
     private String password;
     private String password2;
+    private int numViviendas;
 
 }
