@@ -2,11 +2,12 @@ package realEstate.salesianos.triana.dam.realEstate.dtos;
 
 import org.springframework.stereotype.Component;
 import realEstate.salesianos.triana.dam.realEstate.models.Interesa;
+import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
 
 @Component
 public class InteresadoDtoConverter {
-    public Interesado createInteresadoDtoToInteresado(CreateInteresadoInteresaDto c){
-        return new Interesado(
+    public Usuario createInteresadoDtoToInteresado(CreateInteresadoInteresaDto c){
+        return new Usuario(
                 c.getNombre(),
                 c.getApellidos(),
                 c.getDireccion(),
@@ -16,7 +17,7 @@ public class InteresadoDtoConverter {
         );
     }
 
-    public GetInteresadoDto interesadoToGetInteresadoDto(Interesado i){
+    public GetInteresadoDto interesadoToGetInteresadoDto(Usuario i){
         GetInteresadoDto result = new GetInteresadoDto();
         result.setId(i.getId());
         result.setNombre(i.getNombre());
@@ -28,7 +29,7 @@ public class InteresadoDtoConverter {
         return result;
     }
 
-    public GetInteresadoDto2 interesadoToGetInteresadoDto2(Interesado i){
+    public GetInteresadoDto2 interesadoToGetInteresadoDto2(Usuario i){
         GetInteresadoDto2 result = new GetInteresadoDto2();
         result.setId(i.getId());
         result.setNombre(i.getNombre());
@@ -36,7 +37,7 @@ public class InteresadoDtoConverter {
         result.setAvatar(i.getAvatar());
         return result;
     }
-    public GetInteresadoInteresaDto interesadoToGetInteresadoInteresaDto(Interesado i, Interesa in){
+    public GetInteresadoInteresaDto interesadoToGetInteresadoInteresaDto(Usuario i, Interesa in){
         return GetInteresadoInteresaDto.builder()
                 .nombre(i.getNombre())
                 .apellidos(i.getApellidos())

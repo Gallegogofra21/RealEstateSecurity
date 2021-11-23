@@ -3,6 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import realEstate.salesianos.triana.dam.realEstate.models.*;
 import realEstate.salesianos.triana.dam.realEstate.services.InmobiliariaService;
+import realEstate.salesianos.triana.dam.realEstate.users.services.UserEntityService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class ViviendaDtoConverter {
    @Autowired
     private  InmobiliariaService inmobiliariaService ;
     @Autowired
-    private UsuarioService usuarioService ;
+    private UserEntityService usuarioService ;
 
     public GetViviendaDto viviendaToGetViviendaDto (Vivienda v){
 
