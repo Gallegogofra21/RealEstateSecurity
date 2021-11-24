@@ -1,4 +1,4 @@
-package realEstate.salesianos.triana.dam.realEstate.users.dto;
+package realEstate.salesianos.triana.dam.realEstate.users.dto.Gestores;
 
 import lombok.*;
 
@@ -7,13 +7,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GetUserDto {
+public class CreateGestorDto {
 
-    private Long id;
+    private String username;
     private String avatar;
     private String nombre;
     private String email;
-    private String role;
-    //private int numViviendas;
+    private String password;
+    private String password2;
     private Long inmobiliariaId;
 }

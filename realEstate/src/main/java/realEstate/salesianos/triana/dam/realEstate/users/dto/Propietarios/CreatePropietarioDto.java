@@ -1,14 +1,13 @@
-package realEstate.salesianos.triana.dam.realEstate.users.dto;
+package realEstate.salesianos.triana.dam.realEstate.users.dto.Propietarios;
 
 import lombok.*;
-import realEstate.salesianos.triana.dam.realEstate.models.Inmobiliaria;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CreateUserDto {
+public class CreatePropietarioDto {
 
     private String username;
     private String avatar;
@@ -16,5 +15,5 @@ public class CreateUserDto {
     private String email;
     private String password;
     private String password2;
-
+    private Long inmobiliariaId;
 }

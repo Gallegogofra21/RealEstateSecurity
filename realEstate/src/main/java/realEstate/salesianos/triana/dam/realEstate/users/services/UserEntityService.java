@@ -13,6 +13,7 @@ import realEstate.salesianos.triana.dam.realEstate.security.dto.JwtUserResponse;
 import realEstate.salesianos.triana.dam.realEstate.services.InmobiliariaService;
 import realEstate.salesianos.triana.dam.realEstate.services.base.BaseService;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.CreateUserDto;
+import realEstate.salesianos.triana.dam.realEstate.users.dto.Gestores.CreateGestorDto;
 import realEstate.salesianos.triana.dam.realEstate.users.model.UserRole;
 import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
 import realEstate.salesianos.triana.dam.realEstate.users.repos.UserEntityRepository;
@@ -73,7 +74,7 @@ public class UserEntityService extends BaseService<Usuario, Long, UserEntityRepo
         }
     }
 
-    public Usuario saveGestor(CreateUserDto newUser) {
+    public Usuario saveGestor(CreateGestorDto newUser) {
         if(newUser.getPassword().contentEquals(newUser.getPassword2())) {
             Usuario usuario = Usuario.builder()
                     .password(passwordEncoder.encode(newUser.getPassword()))
