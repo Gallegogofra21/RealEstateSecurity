@@ -19,6 +19,7 @@ import realEstate.salesianos.triana.dam.realEstate.users.dto.GetUserDto;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.UserDtoConverter;
 import realEstate.salesianos.triana.dam.realEstate.users.model.UserRole;
 import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
+import realEstate.salesianos.triana.dam.realEstate.users.repos.UserEntityRepository;
 import realEstate.salesianos.triana.dam.realEstate.users.services.UserEntityService;
 import realEstate.salesianos.triana.dam.realEstate.util.PaginationLinksUtil;
 
@@ -34,10 +35,10 @@ import java.util.stream.Collectors;
 public class UserController {
 
     private final UserEntityService userEntityService;
+    private final UserEntityRepository repository;
     private final UserDtoConverter userDtoConverter;
     private final PaginationLinksUtil paginationLinksUtil;
-    private final JwtAuthorizationFilter jwtAuthorizationFilter;
-    private final JwtProvider jwtProvider;
+
 
     @PostMapping("/auth/register/admin")
     public ResponseEntity<GetUserDto> nuevoAdmin(@RequestBody CreateUserDto newUser) {
@@ -100,5 +101,19 @@ public class UserController {
 
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @DeleteMapping("/propietario/{id}")
+    public ResponseEntity<?> delete (@PathVariable Long id, @AuthenticationPrincipal Usuario usuario) {
+
+        Optional<Usuario> propietarioOptional = userEntityService.loadUserById(id);
+
+        if(usuario.getRol().equals(UserRole.ADMIN) || (propietarioOptional.get().getRol().equals(usuario.getRol()) &&
+                propietarioOptional.get().getId().equals(usuario.getId()))) {
+            Usuario propietario = propietarioOptional.get();
+            propietario.nullearPropietarioDeViviendas();
+            repository.deleteById(id);
+        }
+        return ResponseEntity.noContent().build();
     }
 }

@@ -76,7 +76,7 @@ public class PropietarioController {
         return ResponseEntity.of(propietarioService.findById(id).map(dtoConverter::convertPropietarioToGetPropietarioConViviendasDto));
     }*/
 
-    @Operation(summary = "Eliminamos un propietario por su id.")
+    /*@Operation(summary = "Eliminamos un propietario por su id.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
                     description = "Borrado del propietario con éxito",
@@ -96,5 +96,5 @@ public class PropietarioController {
             repository.deleteById(id);
         }
         return ResponseEntity.noContent().build();
-    }
+    }*/
 }
