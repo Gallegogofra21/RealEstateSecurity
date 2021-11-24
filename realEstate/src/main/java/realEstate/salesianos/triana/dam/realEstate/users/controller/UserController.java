@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import realEstate.salesianos.triana.dam.realEstate.dtos.GetPropietarioConViviendasDto;
@@ -21,7 +22,9 @@ import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
 import realEstate.salesianos.triana.dam.realEstate.users.services.UserEntityService;
 import realEstate.salesianos.triana.dam.realEstate.util.PaginationLinksUtil;
 
+import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -84,20 +87,18 @@ public class UserController {
     }
 
     @GetMapping("/propietario/{id}")
-    public ResponseEntity<List<GetPropietarioConViviendasDto>> findOnePropietario(@PathVariable Long id, HttpServletRequest request) {
-        Optional<Usuario> propietario = userEntityService.loadUserById(id /*UserRole.PROPIETARIO*/);
+    public ResponseEntity<List<GetPropietarioConViviendasDto>> findOnePropietario(@PathVariable Long id, @AuthenticationPrincipal Usuario usuario) {
+        Optional<Usuario> propietario = userEntityService.loadUserById(id);
 
-        String token = jwtAuthorizationFilter.getJwtFromRequest(request);
-        Long idPropietario = jwtProvider.getUserIdFromJwt(token);
-
-        if(!propietario.get().getRol().equals(UserRole.ADMIN) && !propietario.get().getRol().equals(idPropietario)){
-            return ResponseEntity.notFound().build();
-        }else {
+        if(usuario.getRol().equals(UserRole.ADMIN) || (propietario.get().getRol().equals(usuario.getRol())
+                && propietario.get().getId().equals(usuario.getId()))){
             List<GetPropietarioConViviendasDto> propietarioDto = propietario.stream()
                     .map(userDtoConverter::propietarioToGetPropietarioConViviendas)
                     .collect(Collectors.toList());
             return ResponseEntity.ok().body(propietarioDto);
+        }else {
+
+            return ResponseEntity.notFound().build();
         }
-        //return ResponseEntity.of(userEntityService.findById(id).map(userDtoConverter::propietarioToGetPropietarioConViviendas));
     }
 }

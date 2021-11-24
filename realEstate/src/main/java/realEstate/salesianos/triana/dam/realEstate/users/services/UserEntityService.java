@@ -38,8 +38,8 @@ public class UserEntityService extends BaseService<Usuario, Long, UserEntityRepo
         return this.repositorio.findByRol(rol, pageable);
     }
 
-    public Optional<Usuario> loadUserById(Long id /*UserRole rol*/) throws UsernameNotFoundException{
-        return this.repositorio.findById(id);//rol;
+    public Optional<Usuario> loadUserById(Long id) throws UsernameNotFoundException{
+        return this.repositorio.findById(id);
     }
 
     public Usuario saveAdmin(CreateUserDto newUser) {
