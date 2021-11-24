@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import realEstate.salesianos.triana.dam.realEstate.repositories.ViviendaRepository;
 import realEstate.salesianos.triana.dam.realEstate.services.*;
+import realEstate.salesianos.triana.dam.realEstate.users.dto.CreateUserDto;
+import realEstate.salesianos.triana.dam.realEstate.users.model.UserRole;
 import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
 import realEstate.salesianos.triana.dam.realEstate.users.services.UserEntityService;
 import realEstate.salesianos.triana.dam.realEstate.util.PaginationLinksUtil;
@@ -61,9 +64,11 @@ public class ViviendaController {
                     content = @Content)
     })
     @PostMapping("/")
-    public ResponseEntity<Vivienda> createVivienda(@RequestBody Vivienda vivienda) {
-        if (!propietarioService.findById(vivienda.getPropietario().getId()).isPresent()) {
-            propietarioService.save(vivienda.getPropietario());
+    public ResponseEntity<Vivienda> createVivienda(@RequestBody Vivienda vivienda, @AuthenticationPrincipal Usuario usuario) {
+        if(usuario.getRol().equals(UserRole.PROPIETARIO)){
+            vivienda.setPropietario(usuario);
+        }else {
+            return new ResponseEntity<Vivienda>(HttpStatus.UNAUTHORIZED);
         }
         return ResponseEntity
                 .status(HttpStatus.CREATED)

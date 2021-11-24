@@ -88,7 +88,8 @@ public class UserController {
         if(propietario.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        else if(usuario.getRol().equals(UserRole.ADMIN) || (propietario.get().getRol().equals(usuario.getRol())
+        else if(usuario.getRol().equals(UserRole.ADMIN)
+                || (propietario.get().getRol().equals(usuario.getRol())
                 && propietario.get().getId().equals(usuario.getId()))){
             List<GetPropietarioConViviendasDto> propietarioDto = propietario.stream()
                     .map(userDtoConverter::convertPropietarioToGetPropietarioConViviendasDto)

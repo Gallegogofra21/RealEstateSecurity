@@ -10,6 +10,7 @@ import realEstate.salesianos.triana.dam.realEstate.models.Inmobiliaria;
 @Builder
 public class CreateUserDto {
 
+    private Long id;
     private String username;
     private String avatar;
     private String nombre;
