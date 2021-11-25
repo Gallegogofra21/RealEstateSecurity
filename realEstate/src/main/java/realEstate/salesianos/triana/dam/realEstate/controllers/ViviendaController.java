@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -23,8 +22,10 @@ import realEstate.salesianos.triana.dam.realEstate.dtos.*;
 import realEstate.salesianos.triana.dam.realEstate.models.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-import realEstate.salesianos.triana.dam.realEstate.repositories.ViviendaRepository;
 import realEstate.salesianos.triana.dam.realEstate.services.*;
+import realEstate.salesianos.triana.dam.realEstate.users.dto.Interesados.CreateInteresadoInteresaVivienda;
+import realEstate.salesianos.triana.dam.realEstate.users.dto.Interesados.InteresadoDtoConverter;
+import realEstate.salesianos.triana.dam.realEstate.users.dto.UserDtoConverter;
 import realEstate.salesianos.triana.dam.realEstate.users.model.UserRole;
 import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
 import realEstate.salesianos.triana.dam.realEstate.users.services.UserEntityService;
@@ -32,7 +33,6 @@ import realEstate.salesianos.triana.dam.realEstate.util.PaginationLinksUtil;
 
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -51,6 +51,7 @@ public class ViviendaController {
       private final InteresaService interesaService;
       private final InteresadoDtoConverter interesadoDtoConverter;
       private final UserEntityService propietarioService;
+      private final PropietarioDtoConverter propietarioDtoConverter;
 
     @Operation(summary = "Se crea una vivienda y si el propietario no existe, también lo crea")
     @ApiResponses(value = {
@@ -205,25 +206,27 @@ public class ViviendaController {
             content = @Content)
     })
     @PostMapping("/{id}/meinteresa")
-    public ResponseEntity<GetInteresadoInteresaDto> createInteresado(@PathVariable("id") Long id, @RequestBody CreateInteresadoInteresaDto dto){
-
-
-        if (viviendaService.findById(id).isEmpty()){
+    public ResponseEntity<GetInteresadoInteresaDto> createInteresado(@PathVariable("id") Long id,CreateInteresadoInteresaDto dto, @AuthenticationPrincipal Usuario usuario){
+        if(viviendaService.findById(id).isEmpty()){
             return ResponseEntity.notFound().build();
-        }
-        else {
-            Optional<Vivienda> v = viviendaService.findById(id);
-            Usuario interesado = interesadoDtoConverter.createInteresadoDtoToInteresado(dto);
+        }else if(!usuario.getRol().equals(UserRole.PROPIETARIO)){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }else {
+            Optional<Vivienda> viviendaOptional = viviendaService.findById(id);
+            //Usuario propietario = interesadoDtoConverter.createInteresadoDtoToInteresado(dto);
             Interesa interesa = Interesa.builder()
                     .mensaje(dto.getMensaje())
                     .build();
-            interesa.addToInteresado(interesado);
-            interesa.addToVivienda(v.get());
-            interesadoService.save(interesado);
+            interesa.addToInteresado(usuario);
+            interesa.addToVivienda(viviendaOptional.get());
+            //interesadoService.save(usuario);
             interesaService.save(interesa);
-            GetInteresadoInteresaDto iDto = interesadoDtoConverter.interesadoToGetInteresadoInteresaDto(interesado,interesa);
+            GetInteresadoInteresaDto iDto = interesadoDtoConverter.interesadoToGetInteresadoInteresaDto(usuario, interesa);
             return ResponseEntity.status(HttpStatus.CREATED).body(iDto);
+
         }
+
+
     }
 
     @Operation(summary = "Se añade a una vivienda existente un interesado existente")

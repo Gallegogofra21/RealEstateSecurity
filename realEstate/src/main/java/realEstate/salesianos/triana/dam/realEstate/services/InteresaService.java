@@ -18,7 +18,7 @@ public class InteresaService extends BaseService<Interesa, Long, InteresaReposit
 
     public Interesa findByInteresaPk (Long id1,Long id2){
         Interesa i1 = new Interesa();
-        i1= repositorio.findByViviendaIdAndInteresadoId(id1,id2);
+        i1= repositorio.findByViviendaIdAndUsuarioId(id1,id2);
         return i1;
     }
 
@@ -29,7 +29,7 @@ public class InteresaService extends BaseService<Interesa, Long, InteresaReposit
         //Se consigue una instancia de los objetos con los que trabajaremos.
         Vivienda vivienda = viviendaService.findById(id1).get();
         Usuario usuario = usuarioService.findById(id2).get();
-        Interesa i1=repositorio.findByViviendaIdAndInteresadoId(id1,id2);
+        Interesa i1=repositorio.findByViviendaIdAndUsuarioId(id1,id2);
 
         //Usamos los helpers de interesa para borrar a su interesado y su vivienda.
          i1.removeFromInteresado(usuario);

@@ -1,12 +1,13 @@
-package realEstate.salesianos.triana.dam.realEstate.dtos;
+package realEstate.salesianos.triana.dam.realEstate.users.dto.Interesados;
 
 import org.springframework.stereotype.Component;
+import realEstate.salesianos.triana.dam.realEstate.dtos.*;
 import realEstate.salesianos.triana.dam.realEstate.models.Interesa;
 import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
 
 @Component
 public class InteresadoDtoConverter {
-    public Usuario createInteresadoDtoToInteresado(CreateInteresadoInteresaDto c){
+    /*public Usuario createInteresadoDtoToInteresado(CreateInteresadoInteresaDto c){
         return new Usuario(
                 c.getNombre(),
                 c.getApellidos(),
@@ -15,7 +16,7 @@ public class InteresadoDtoConverter {
                 c.getTelefono(),
                 c.getAvatar()
         );
-    }
+    }*/
 
     public GetInteresadoDto interesadoToGetInteresadoDto(Usuario i){
         GetInteresadoDto result = new GetInteresadoDto();

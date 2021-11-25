@@ -2,7 +2,7 @@ package realEstate.salesianos.triana.dam.realEstate.dtos;
 
 import org.springframework.stereotype.Component;
 import realEstate.salesianos.triana.dam.realEstate.models.Interesa;
-import realEstate.salesianos.triana.dam.realEstate.models.Vivienda;
+import realEstate.salesianos.triana.dam.realEstate.users.dto.Interesados.InteresadoDtoConverter;
 
 @Component
 public class InteresaDtoConverter {
@@ -12,11 +12,11 @@ public class InteresaDtoConverter {
 
         GetInteresaDto result = new GetInteresaDto();
 
-        result.setInteresado_id(i.getInteresado().getId());
+        result.setInteresado_id(i.getUsuario().getId());
         result.setVivienda_id(i.getVivienda().getId());
         result.setCreatedDate(i.getCreatedDate());
         result.setMensaje(i.getMensaje());
-        result.setInteresadoDto(interesadoDtoConverter.interesadoToGetInteresadoDto(i.getInteresado()));
+        result.setInteresadoDto(interesadoDtoConverter.interesadoToGetInteresadoDto(i.getUsuario()));
 
         return result;
     }

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import realEstate.salesianos.triana.dam.realEstate.dtos.GetInteresadoDto;
 import realEstate.salesianos.triana.dam.realEstate.dtos.GetInteresadoDto2;
-import realEstate.salesianos.triana.dam.realEstate.dtos.InteresadoDtoConverter;
+import realEstate.salesianos.triana.dam.realEstate.users.dto.Interesados.InteresadoDtoConverter;
 import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
 import realEstate.salesianos.triana.dam.realEstate.users.services.UserEntityService;
 import realEstate.salesianos.triana.dam.realEstate.util.PaginationLinksUtil;

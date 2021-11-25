@@ -54,7 +54,7 @@ public class Usuario implements UserDetails {
     private List<Vivienda> viviendas = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "interesado")
+    @OneToMany(mappedBy = "usuario")
     private List<Interesa> intereses = new ArrayList<>();
 
     @CreatedDate

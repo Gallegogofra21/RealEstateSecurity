@@ -31,7 +31,7 @@ public class Interesa {
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("usuario_id")
     @JoinColumn(name = "usuario_id")
-    private Usuario interesado;
+    private Usuario usuario;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @MapsId("vivienda_id")
@@ -43,7 +43,7 @@ public class Interesa {
      HELPERS
      */
     public void addToInteresado (Usuario i){
-        interesado = i;
+        usuario = i;
         if (i.getIntereses() == null){
             i.setIntereses(new ArrayList<>());
             i.getIntereses().add(this);
@@ -51,7 +51,7 @@ public class Interesa {
     }
     public void removeFromInteresado (Usuario i){
         i.getIntereses().remove(this);
-        interesado = null;
+        usuario = null;
     }
 
 

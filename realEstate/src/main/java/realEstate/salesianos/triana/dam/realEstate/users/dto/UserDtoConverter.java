@@ -1,8 +1,8 @@
 package realEstate.salesianos.triana.dam.realEstate.users.dto;
 
 import org.springframework.stereotype.Component;
-import realEstate.salesianos.triana.dam.realEstate.dtos.GetPropietarioConViviendasDto;
-import realEstate.salesianos.triana.dam.realEstate.dtos.GetViviendaSinPropietarioDto;
+import realEstate.salesianos.triana.dam.realEstate.dtos.*;
+import realEstate.salesianos.triana.dam.realEstate.models.Interesa;
 import realEstate.salesianos.triana.dam.realEstate.models.Vivienda;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.Gestores.CreateGestorDto;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.Propietarios.CreatePropietarioDto;
@@ -70,6 +70,7 @@ public class UserDtoConverter {
                 //.inmobiliariaId(g.getInmobiliaria().getId())
                 .build();
     }
+
 }
 
 

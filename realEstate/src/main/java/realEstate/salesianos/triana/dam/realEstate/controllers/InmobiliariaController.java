@@ -12,6 +12,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,9 @@ import realEstate.salesianos.triana.dam.realEstate.dtos.InmobiliariaDtoConverter
 import realEstate.salesianos.triana.dam.realEstate.models.Inmobiliaria;
 import realEstate.salesianos.triana.dam.realEstate.services.InmobiliariaService;
 import org.springframework.web.bind.annotation.*;
+import realEstate.salesianos.triana.dam.realEstate.users.model.UserRole;
+import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
+import realEstate.salesianos.triana.dam.realEstate.users.services.UserEntityService;
 import realEstate.salesianos.triana.dam.realEstate.util.PaginationLinksUtil;
 import realEstate.salesianos.triana.dam.realEstate.services.ViviendaService;
 
@@ -39,6 +43,7 @@ public class InmobiliariaController {
     private final InmobiliariaService inmobiliariaService;
     private final InmobiliariaDtoConverter inmobiliariaDtoConverter;
     private final ViviendaService viviendaService;
+    private final UserEntityService userEntityService;
 
 
     @Operation(summary = "Listar todas las inmobiliarias existentes.")
@@ -136,4 +141,14 @@ public class InmobiliariaController {
                 .body(inmobiliariaService.save(inmobiliaria));
     }
 
+    /*@PostMapping("/{id}/gestor")
+    public ResponseEntity<?> añadirGestor (@PathVariable("id") Long id,@RequestBody Inmobiliaria inmobiliaria, @AuthenticationPrincipal Usuario usuario){
+        Optional<Inmobiliaria> inmobiliariaOptional = inmobiliariaService.findById(id);
+        List<Usuario> gestor = inmobiliariaService.findById(id).get().getGestores();
+
+        if(inmobiliariaService.findById(id).isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else if (usuario.getRol().equals(UserRole.GESTOR) && gestor)
+
+*/
 }

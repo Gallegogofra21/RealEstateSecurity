@@ -14,6 +14,7 @@ import realEstate.salesianos.triana.dam.realEstate.services.InmobiliariaService;
 import realEstate.salesianos.triana.dam.realEstate.services.base.BaseService;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.CreateUserDto;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.Gestores.CreateGestorDto;
+import realEstate.salesianos.triana.dam.realEstate.users.dto.Interesados.CreateInteresadoInteresaVivienda;
 import realEstate.salesianos.triana.dam.realEstate.users.model.UserRole;
 import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
 import realEstate.salesianos.triana.dam.realEstate.users.repos.UserEntityRepository;
@@ -87,6 +88,22 @@ public class UserEntityService extends BaseService<Usuario, Long, UserEntityRepo
 
             /*Optional<Inmobiliaria> inmobiliaria = inmobiliariaService.findById(newUser.getInmobiliaria_id());
             usuario.addInmobiliaria(inmobiliaria.get());*/
+            return save(usuario);
+        } else {
+            return null;
+        }
+    }
+
+    public Usuario saveInteresado(CreateInteresadoInteresaVivienda newUser) {
+        if(newUser.getPassword().contentEquals(newUser.getPassword2())) {
+            Usuario usuario = Usuario.builder()
+                    .password(passwordEncoder.encode(newUser.getPassword()))
+                    .avatar(newUser.getAvatar())
+                    .nombre(newUser.getNombre())
+                    .email(newUser.getEmail())
+                    .rol(UserRole.GESTOR)
+                    //.inmobiliaria(null)
+                    .build();
             return save(usuario);
         } else {
             return null;
