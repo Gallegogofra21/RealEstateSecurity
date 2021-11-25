@@ -128,7 +128,7 @@ public class ViviendaDtoConverter {
         result.setTienePiscina(v.isTienePiscina());
         result.setTieneAscensor(v.isTieneAscensor());
         result.setTieneGaraje(v.isTieneGaraje());
-        result.setInmobiliaria(inmobiliariaService.findById(v.getInmobiliaria().getId()).get());
+        //result.setInmobiliaria(inmobiliariaService.findById(v.getInmobiliaria().getId()).get());
         result.setPropietario(usuarioService.findById(v.getPropietario().getId()).get());
 
         return result;

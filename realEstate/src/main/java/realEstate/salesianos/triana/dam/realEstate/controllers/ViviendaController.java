@@ -342,20 +342,26 @@ public class ViviendaController {
     public ResponseEntity<?> editVivienda (
     @Parameter(description = "ID de la Vivienda que desea buscar")
     @PathVariable Long id,
-    @RequestBody CreateViviendaDto dto){
+    @RequestBody CreateViviendaDto dto,
+    @AuthenticationPrincipal Usuario usuario) {
+            Optional<Vivienda> viviendaOptional = viviendaService.findById(id);
+            Usuario propietario = viviendaService.findById(id).get().getPropietario();
+            if (viviendaOptional.isEmpty()) {
+                return ResponseEntity.notFound().build();
 
-        if(viviendaService.findById(id).isEmpty()){
-            return ResponseEntity.notFound().build();
+            } else if (usuario.getRol().equals(UserRole.ADMIN) ||
+                    (usuario.getRol().equals(UserRole.PROPIETARIO)) &&
+                            propietario.getId().equals(usuario.getId())) {
+            }
 
-    }else{
-            Vivienda vNueva = new Vivienda();
-            vNueva = viviendaDtoConverter.createViviendaDtoToVivienda(dto);
-           viviendaService.edit(vNueva);
-            return ResponseEntity.status(HttpStatus.CREATED).body(viviendaService.encontrarViviendaPorId(id).map(viviendaDtoConverter::viviendaToGetViviendaDetailDto));
-    
-    }
+            Vivienda nVivienda;
+            nVivienda = viviendaDtoConverter.createViviendaDtoToVivienda(dto);
+                viviendaService.edit(nVivienda);
+                return ResponseEntity.status(HttpStatus.CREATED).body(viviendaService.encontrarViviendaPorId(id).map(viviendaDtoConverter::viviendaToGetViviendaDetailDto));
+        }
 
-    }
+
+
 
     @Operation(summary = "Elimina el interés de un interesado por una vivienda")
     @ApiResponses(value = {
