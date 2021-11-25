@@ -169,7 +169,7 @@ public class ViviendaController {
                     description = "No se ha encontrado la vivienda con el id proporcionado.",
                     content = @Content),
     })
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> detalleVivienda (
             @Parameter(description = "ID de la Vivienda que desea buscar")
             @PathVariable Long id
