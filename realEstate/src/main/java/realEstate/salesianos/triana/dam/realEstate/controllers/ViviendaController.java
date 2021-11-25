@@ -279,12 +279,15 @@ public class ViviendaController {
                     content = @Content)
     })
     @PostMapping("/{id1}/inmobiliaria/{id2}")
-    public ResponseEntity<?> addViviendaAInmobiliaria ( @PathVariable Long id1, @PathVariable Long id2){
+    public ResponseEntity<?> addViviendaAInmobiliaria ( @PathVariable Long id1, @PathVariable Long id2, @AuthenticationPrincipal Usuario usuario){
+        Usuario propietario = viviendaService.findById(id1).get().getPropietario();
         Optional<Vivienda> optionalVivienda=viviendaService.findById(id1);
         Optional<Inmobiliaria> optionalInmobiliaria= inmobiliariaService.findById(id2);
         if (optionalInmobiliaria.isEmpty() || optionalVivienda.isEmpty()){
             return ResponseEntity.notFound().build();
-        }else{
+        }else if(usuario.getRol().equals(UserRole.ADMIN) ||
+                usuario.getRol().equals(UserRole.PROPIETARIO) &&
+                        propietario.getId().equals(usuario.getId())){
 
             Vivienda vivienda = optionalVivienda.get();
             Inmobiliaria inmobiliaria = optionalInmobiliaria.get();
@@ -294,6 +297,8 @@ public class ViviendaController {
             GetViviendaInmobiliariaDto viviendaDto = viviendaDtoConverter.viviendaToGetViviendaInmobiliariaDto(vivienda, inmobiliaria);
             return ResponseEntity.status(HttpStatus.CREATED).body(viviendaDto);
         }
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
 
     }
 
