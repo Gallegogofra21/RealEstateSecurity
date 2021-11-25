@@ -4,11 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import realEstate.salesianos.triana.dam.realEstate.dtos.GetPropietarioConViviendasDto;
+import realEstate.salesianos.triana.dam.realEstate.models.Vivienda;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.CreateUserDto;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.Gestores.CreateGestorDto;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.Propietarios.GetPropietarioDto;
@@ -85,30 +87,28 @@ public class UserController {
     public ResponseEntity<List<GetPropietarioConViviendasDto>> findOnePropietario(@PathVariable Long id, @AuthenticationPrincipal Usuario usuario) {
         Optional<Usuario> propietario = userEntityService.loadUserById(id);
 
-        if(propietario.isEmpty()){
+        if (propietario.isEmpty()) {
             return ResponseEntity.notFound().build();
-        }
-        else if(usuario.getRol().equals(UserRole.ADMIN) || (propietario.get().getRol().equals(usuario.getRol())
-                && propietario.get().getId().equals(usuario.getId()))){
+        } else if (usuario.getRol().equals(UserRole.ADMIN) || (propietario.get().getRol().equals(usuario.getRol())
+                && propietario.get().getId().equals(usuario.getId()))) {
             List<GetPropietarioConViviendasDto> propietarioDto = propietario.stream()
                     .map(userDtoConverter::convertPropietarioToGetPropietarioConViviendasDto)
                     .collect(Collectors.toList());
             return ResponseEntity.ok().body(propietarioDto);
-        }else {
+        } else {
 
             return ResponseEntity.notFound().build();
         }
     }
 
     @DeleteMapping("/propietario/{id}")
-    public ResponseEntity<?> delete (@PathVariable Long id, @AuthenticationPrincipal Usuario usuario) {
+    public ResponseEntity<?> delete(@PathVariable Long id, @AuthenticationPrincipal Usuario usuario) {
 
         Optional<Usuario> propietarioOptional = userEntityService.loadUserById(id);
 
-        if(propietarioOptional.isEmpty()){
+        if (propietarioOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
-        }
-        else if(usuario.getRol().equals(UserRole.ADMIN) || (propietarioOptional.get().getRol().equals(usuario.getRol()) &&
+        } else if (usuario.getRol().equals(UserRole.ADMIN) || (propietarioOptional.get().getRol().equals(usuario.getRol()) &&
                 propietarioOptional.get().getId().equals(usuario.getId()))) {
             Usuario propietario = propietarioOptional.get();
             propietario.nullearPropietarioDeViviendas();
@@ -117,3 +117,5 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 }
+
+

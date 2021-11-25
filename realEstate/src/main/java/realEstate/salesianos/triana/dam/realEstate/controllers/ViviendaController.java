@@ -87,15 +87,24 @@ public class ViviendaController {
                     content = @Content),})
     @DeleteMapping("/{id}")
     @CrossOrigin
-    public ResponseEntity<?> delete(@PathVariable Long id) {
-        if(viviendaService.findById(id).isEmpty()){
+    public ResponseEntity<?> delete(@PathVariable Long id, @AuthenticationPrincipal Usuario usuario) {
+
+        Optional<Vivienda> viviendaOptional = viviendaService.findById(id);
+        Usuario propietario = viviendaService.findById(id).get().getPropietario();
+
+        if(viviendaOptional.isEmpty()){
             return ResponseEntity.notFound().build();
-        }else{
+        }
+        else if(!usuario.getRol().equals(UserRole.ADMIN) ||
+                (!usuario.getRol().equals(UserRole.PROPIETARIO)) && !propietario.getId().equals(usuario.getId())){
             viviendaService.findById(id).get().removeViviendasToIntereses();
             viviendaService.deleteById(id);
-            return ResponseEntity.noContent().build();
         }
+
+            return ResponseEntity.noContent().build();
+
     }
+
 
     @Operation(summary = "Eliminación de la inmobiliaria asociada a la vivienda según su id")
     @ApiResponses(value = {
