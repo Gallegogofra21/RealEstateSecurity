@@ -36,7 +36,7 @@ public class InmobiliariaDtoConverter {
                 .nombre(i.getNombre())
                 .avatar(i.getAvatar())
                 .numViviendas(i.getViviendas().size())
-                .nombreVivienda(nombres)
+                .Vivienda(nombres)
                 .build();
     }
 

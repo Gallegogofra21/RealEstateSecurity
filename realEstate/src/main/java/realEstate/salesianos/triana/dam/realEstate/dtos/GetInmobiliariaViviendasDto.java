@@ -13,10 +13,10 @@ import java.util.List;
 @NoArgsConstructor
 public class GetInmobiliariaViviendasDto extends GetInmobiliariaDto{
 
-    private List<String> nombreVivienda;
+    private List<String> Vivienda;
 
-    public GetInmobiliariaViviendasDto(Long id, String nombre, String avatar, int numViviendas, List<String> nombreVivienda) {
+    public GetInmobiliariaViviendasDto(Long id, String nombre, String avatar, int numViviendas, List<String> vivienda) {
         super(id, nombre, avatar, numViviendas);
-        this.nombreVivienda = nombreVivienda;
+        this.Vivienda = vivienda;
     }
 }
