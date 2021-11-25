@@ -50,7 +50,7 @@ public class Usuario implements UserDetails {
     @JoinColumn(name = "inmobiliaria_id", foreignKey = @ForeignKey(name = "PK_USER_INMOBILIARIA"), nullable = true)
     private Inmobiliaria inmobiliaria;
 
-    @OneToMany(mappedBy = "propietario")
+    @OneToMany(mappedBy = "propietario", fetch = FetchType.EAGER)
     private List<Vivienda> viviendas = new ArrayList<>();
 
     @Builder.Default
