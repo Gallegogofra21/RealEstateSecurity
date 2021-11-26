@@ -28,6 +28,7 @@ public class UserEntityService extends BaseService<Usuario, Long, UserEntityRepo
 
 
     private final PasswordEncoder passwordEncoder;
+    private final InmobiliariaService inmobiliariaService;
 
 
     @Override
@@ -76,6 +77,9 @@ public class UserEntityService extends BaseService<Usuario, Long, UserEntityRepo
     }
 
     public Usuario saveGestor(CreateGestorDto newUser) {
+
+        Optional<Inmobiliaria> inmobiliaria = inmobiliariaService.findById(newUser.getInmobiliariaId());
+        Inmobiliaria inmobiliaria1 = inmobiliaria.get();
         if(newUser.getPassword().contentEquals(newUser.getPassword2())) {
             Usuario usuario = Usuario.builder()
                     .password(passwordEncoder.encode(newUser.getPassword()))
@@ -83,11 +87,11 @@ public class UserEntityService extends BaseService<Usuario, Long, UserEntityRepo
                     .nombre(newUser.getNombre())
                     .email(newUser.getEmail())
                     .rol(UserRole.GESTOR)
-                    //.inmobiliaria(null)
+                    .inmobiliaria(inmobiliaria1)
                     .build();
 
-            /*Optional<Inmobiliaria> inmobiliaria = inmobiliariaService.findById(newUser.getInmobiliaria_id());
-            usuario.addInmobiliaria(inmobiliaria.get());*/
+
+            usuario.addInmobiliaria(inmobiliaria.get());
             return save(usuario);
         } else {
             return null;

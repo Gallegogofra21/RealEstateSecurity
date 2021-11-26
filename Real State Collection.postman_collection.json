@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "03dca0ac-6abe-4901-b0f2-4b3175b91cef",
+		"_postman_id": "fccaa44e-8415-4276-b522-7456f388d119",
 		"name": "Real State Collection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,6 +11,16 @@
 				{
 					"name": "FindAll Vivienda",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -39,6 +49,16 @@
 				{
 					"name": "Post add inmobiliaria to vivienda",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"url": {
@@ -59,6 +79,16 @@
 				{
 					"name": "Delete vivienda/id/inmobiliaria",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -79,16 +109,26 @@
 				{
 					"name": "viviendaById",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{apiBaseUrl}}/vivienda/4",
+							"raw": "{{apiBaseUrl}}/vivienda/1",
 							"host": [
 								"{{apiBaseUrl}}"
 							],
 							"path": [
 								"vivienda",
-								"4"
+								"1"
 							]
 						}
 					},
@@ -97,11 +137,21 @@
 				{
 					"name": "viviendaEdit",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 4,\r\n    \"titulo\": \"Casa Distinta\",\r\n    \"descripcion\": \"Una descripcion muy diferente\",\r\n    \"avatar\": \"assets/vivienda/vi1.jpg\",\r\n    \"latitudLongitud\": \"55.235241/ 125.75050\",\r\n    \"direccion\": \"Calle Condes De Bustillo\",\r\n    \"codigoPostal\": \"41005\",\r\n    \"ciudad\": \"Sevilla\",\r\n    \"provincia\": \"Sevilla\",\r\n    \"tipo\": \"ALQUILER\",\r\n    \"precio\": 5000.0,\r\n    \"numHabitaciones\": 15,\r\n    \"metrosCuadrados\": 250,\r\n    \"numBanos\": 9,\r\n    \"tienePiscina\": false,\r\n    \"tieneAscensor\": true,\r\n    \"tieneGaraje\": false,\r\n    \"propietario\": {\r\n        \"id\": 45,\r\n        \"nombre\": \"Minny\",\r\n        \"apellidos\": \"Cremins\",\r\n        \"direccion\": \"4 Mesta Court\",\r\n        \"email\": \"mcremins27@alibaba.com\",\r\n        \"telefono\": \"+358-132-708-3461\",\r\n        \"avatar\": \"assets/usuarios/u8.jpg\"\r\n    },\r\n    \"inmobiliaria\": {\r\n        \"id\": 10,\r\n        \"nombre\": \"Blogpad\",\r\n        \"email\": \"ewyeld9@bizjournals.com\",\r\n        \"telefono\": \"+63-787-817-6119\",\r\n        \"avatar\": \"assets/inmobiliaria/i9.jpg\"\r\n    }}",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"titulo\": \"Casa Distinta\",\r\n    \"descripcion\": \"Una descripcion muy diferente\",\r\n    \"avatar\": \"assets/vivienda/vi1.jpg\",\r\n    \"latitudLongitud\": \"55.235241/ 125.75050\",\r\n    \"direccion\": \"Calle Condes De Bustillo\",\r\n    \"codigoPostal\": \"41005\",\r\n    \"ciudad\": \"Sevilla\",\r\n    \"provincia\": \"Sevilla\",\r\n    \"tipo\": \"ALQUILER\",\r\n    \"precio\": 5000.0,\r\n    \"numHabitaciones\": 15,\r\n    \"metrosCuadrados\": 250,\r\n    \"numBanos\": 9,\r\n    \"tienePiscina\": false,\r\n    \"tieneAscensor\": true,\r\n    \"tieneGaraje\": false,\r\n    \"propietario\": {\r\n        \"id\": 1,\r\n        \"nombre\": \"Minny\",\r\n        \"apellidos\": \"Cremins\",\r\n        \"direccion\": \"4 Mesta Court\",\r\n        \"email\": \"mcremins27@alibaba.com\",\r\n        \"telefono\": \"+358-132-708-3461\",\r\n        \"avatar\": \"assets/usuarios/u8.jpg\"\r\n    }\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -109,13 +159,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{apiBaseUrl}}/vivienda/4",
+							"raw": "{{apiBaseUrl}}/vivienda/1",
 							"host": [
 								"{{apiBaseUrl}}"
 							],
 							"path": [
 								"vivienda",
-								"4"
+								"1"
 							]
 						}
 					},
@@ -124,6 +174,16 @@
 				{
 					"name": "Delete vivienda",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
@@ -162,6 +222,44 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Add Vivienda",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Casa Distinta\",\r\n    \"descripcion\": \"Una descripcion muy diferente\",\r\n    \"avatar\": \"assets/vivienda/vi1.jpg\",\r\n    \"latitudLongitud\": \"55.235241/ 125.75050\",\r\n    \"direccion\": \"Calle Condes De Bustillo\",\r\n    \"codigoPostal\": \"41005\",\r\n    \"ciudad\": \"Sevilla\",\r\n    \"provincia\": \"Sevilla\",\r\n    \"tipo\": \"ALQUILER\",\r\n    \"precio\": 5000.0,\r\n    \"numHabitaciones\": 15,\r\n    \"metrosCuadrados\": 250,\r\n    \"numBanos\": 9,\r\n    \"tienePiscina\": false,\r\n    \"tieneAscensor\": true,\r\n    \"tieneGaraje\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/vivienda/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"vivienda",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -171,16 +269,25 @@
 				{
 					"name": "FindAll Propietario",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{apiBaseUrl}}/propietario/",
+							"raw": "{{apiBaseUrl}}/propietario",
 							"host": [
 								"{{apiBaseUrl}}"
 							],
 							"path": [
-								"propietario",
-								""
+								"propietario"
 							]
 						}
 					},
@@ -189,16 +296,26 @@
 				{
 					"name": "DeleteOne Propietario",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{apiBaseUrl}}/propietario/1",
+							"raw": "{{apiBaseUrl}}/propietario/2",
 							"host": [
 								"{{apiBaseUrl}}"
 							],
 							"path": [
 								"propietario",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -206,9 +323,26 @@
 				},
 				{
 					"name": "FindOne Propietario",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
 							"raw": "{{apiBaseUrl}}/propietario/1",
 							"host": [
@@ -230,8 +364,27 @@
 				{
 					"name": "AddOne Inmobiliaria",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwiaWF0IjoxNjM3OTQzNzUzLCJub21icmUiOiJGcmFuIiwicm9sIjoiQURNSU4ifQ.ZEcXhxwbWoFUNN7BlEPkPwkvECMWwK-WmlGzQ2vzhDU",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\" : \"Inmobiliaria1\",\r\n    \"email\" : \"Inmobiliaria1@gmail.com\",\r\n    \"telefono\": \"532687\",\r\n    \"avatar\":\"jdfkgfdj.jpeg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{apiBaseUrl}}/inmobiliaria/",
 							"host": [
@@ -248,6 +401,16 @@
 				{
 					"name": "FindAll Inmobiliaria",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -266,16 +429,26 @@
 				{
 					"name": "FindOne Inmobiliaria",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{apiBaseUrl}}/inmobiliaria/3",
+							"raw": "{{apiBaseUrl}}/inmobiliaria/1",
 							"host": [
 								"{{apiBaseUrl}}"
 							],
 							"path": [
 								"inmobiliaria",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -284,16 +457,64 @@
 				{
 					"name": "DeleteOne Inmobiliaria",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{apiBaseUrl}}/inmobiliaria/3",
+							"raw": "{{apiBaseUrl}}/inmobiliaria/1",
 							"host": [
 								"{{apiBaseUrl}}"
 							],
 							"path": [
 								"inmobiliaria",
-								"3"
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Gestor Inmobiliaria",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"idGestor\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiBaseUrl}}/inmobiliaria/1/gestor",
+							"host": [
+								"{{apiBaseUrl}}"
+							],
+							"path": [
+								"inmobiliaria",
+								"1",
+								"gestor"
 							]
 						}
 					},
@@ -307,16 +528,26 @@
 				{
 					"name": "findOne interesado",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{apiBaseUrl}}/interesado/4",
+							"raw": "{{apiBaseUrl}}/interesado/1",
 							"host": [
 								"{{apiBaseUrl}}"
 							],
 							"path": [
 								"interesado",
-								"4"
+								"1"
 							]
 						}
 					},
@@ -325,6 +556,16 @@
 				{
 					"name": "FindAll Interesado",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -343,18 +584,27 @@
 				{
 					"name": "InteresPorUnaVivienda",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{apiBaseUrl}}/vivienda/9/meInteresa/170",
+							"raw": "{{apiBaseUrl}}/vivienda/1/meInteresa",
 							"host": [
 								"{{apiBaseUrl}}"
 							],
 							"path": [
 								"vivienda",
-								"9",
-								"meInteresa",
-								"170"
+								"1",
+								"meInteresa"
 							]
 						}
 					},
@@ -363,6 +613,16 @@
 				{
 					"name": "Vivienda existente Interesado nuevo",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -418,6 +678,148 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Register Propietario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"Fran\",\r\n    \"avatar\" : \"fdkhjskjd\",\r\n    \"nombre\" : \"Fran\",\r\n    \"email\" : \"Propietario2@gmail.com\",\r\n    \"password\" : \"1234\",\r\n    \"password2\" : \"1234\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/auth/register/user",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"register",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"Fran\",\r\n    \"avatar\" : \"fdkhjskjd\",\r\n    \"nombre\" : \"Fran\",\r\n    \"email\" : \"frangallego03@gmail.com\",\r\n    \"password\" : \"1234\",\r\n    \"password2\" : \"1234\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/auth/register/admin",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"register",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log In",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"frangallego03@gmail.com\",\r\n    \"password\" : \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Gestor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Fran\",\r\n    \"apellidos\": \"Gallego Gordillo\",\r\n    \"direccion\": \"Calle 1\",\r\n    \"email\": \"gestor1@gmail.com\",\r\n    \"telefono\": \"1111111\",\r\n    \"avatar\": \"dfssdfgsd.jpg\",\r\n    \"password\": \"1234\",\r\n    \"password2\": \"1234\",\r\n    \"inmobiliaria\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/auth/register/gestor",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"register",
+								"gestor"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -444,6 +846,14 @@
 		{
 			"key": "apiBaseUrl",
 			"value": "localhost:8080"
+		},
+		{
+			"key": "token",
+			"value": "IjoxNjM3ODQyODc4LCJub21icmUiOiJGcmFuIiwicm9sIjoiQURNSU4ifQ.jC8Zw-fGJjQjt7uTFQ-"
+		},
+		{
+			"key": "token",
+			"value": ""
 		}
 	]
 }

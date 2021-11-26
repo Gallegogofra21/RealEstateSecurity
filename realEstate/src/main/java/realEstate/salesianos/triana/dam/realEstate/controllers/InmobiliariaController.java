@@ -152,7 +152,7 @@ public class InmobiliariaController {
         Optional<Inmobiliaria> inmobiliariaOptional = inmobiliariaService.findById(id);
         if(inmobiliariaOptional.isEmpty()){
             return ResponseEntity.notFound().build();
-        }else if (usuario.getRol().equals(UserRole.GESTOR) && inmobiliariaOptional.get().getId().equals(usuario.getInmobiliaria().getId())){
+        }else if (usuario.getRol().equals(UserRole.GESTOR) && (inmobiliariaOptional.get().getId().equals(usuario.getInmobiliaria().getId()))){
             Inmobiliaria inmobiliaria = inmobiliariaOptional.get();
             Usuario gestor = Usuario.builder()
                     .id(dto.getIdGestor())

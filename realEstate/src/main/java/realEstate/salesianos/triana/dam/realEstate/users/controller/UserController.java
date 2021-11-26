@@ -13,6 +13,7 @@ import realEstate.salesianos.triana.dam.realEstate.dtos.GetPropietarioConViviend
 import realEstate.salesianos.triana.dam.realEstate.models.Vivienda;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.CreateUserDto;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.Gestores.CreateGestorDto;
+import realEstate.salesianos.triana.dam.realEstate.users.dto.Gestores.GetGestorDto;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.Propietarios.GetPropietarioDto;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.UserDtoConverter;
 import realEstate.salesianos.triana.dam.realEstate.users.model.UserRole;
@@ -57,10 +58,10 @@ public class UserController {
     }
 
     @PostMapping("/auth/register/gestor")
-    public ResponseEntity<CreateGestorDto> nuevoGestor(@RequestBody CreateGestorDto newUser) {
+    public ResponseEntity<GetGestorDto> nuevoGestor(@RequestBody CreateGestorDto newUser) {
         Usuario saved = userEntityService.saveGestor(newUser);
 
-        if (saved == null) //|| saved.getInmobiliaria() == null)
+        if (saved == null)
             return ResponseEntity.badRequest().build();
         else
             return ResponseEntity.ok(userDtoConverter.convertUsuarioToGestorDto(saved));

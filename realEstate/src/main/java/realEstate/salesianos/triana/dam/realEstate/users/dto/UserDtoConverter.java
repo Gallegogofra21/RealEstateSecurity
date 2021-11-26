@@ -5,6 +5,7 @@ import realEstate.salesianos.triana.dam.realEstate.dtos.*;
 import realEstate.salesianos.triana.dam.realEstate.models.Interesa;
 import realEstate.salesianos.triana.dam.realEstate.models.Vivienda;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.Gestores.CreateGestorDto;
+import realEstate.salesianos.triana.dam.realEstate.users.dto.Gestores.GetGestorDto;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.Propietarios.CreatePropietarioDto;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.Propietarios.GetPropietarioDto;
 import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
@@ -59,15 +60,14 @@ public class UserDtoConverter {
                 .build();
     }
 
-    public CreateGestorDto convertUsuarioToGestorDto (Usuario g) {
-        return CreateGestorDto.builder()
-                .username(g.getUsername())
-                .avatar(g.getAvatar())
-                .nombre(g.getNombre())
+    public GetGestorDto convertUsuarioToGestorDto (Usuario g) {
+        return GetGestorDto.builder()
                 .email(g.getEmail())
-                .password(g.getPassword())
-                .password2(g.getPassword())
-                //.inmobiliariaId(g.getInmobiliaria().getId())
+                .rol(g.getRol().name())
+                .userName(g.getUsername())
+                .direccion(g.getDireccion())
+                .telefono(g.getTelefono())
+                .inmobiliariaId(g.getInmobiliaria().getId())
                 .build();
     }
 

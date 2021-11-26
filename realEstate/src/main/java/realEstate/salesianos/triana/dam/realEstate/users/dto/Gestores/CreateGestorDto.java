@@ -1,6 +1,7 @@
 package realEstate.salesianos.triana.dam.realEstate.users.dto.Gestores;
 
 import lombok.*;
+import realEstate.salesianos.triana.dam.realEstate.models.Inmobiliaria;
 
 @Getter
 @Setter
