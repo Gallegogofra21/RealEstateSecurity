@@ -5,7 +5,7 @@
 
 
 
-Este proyecto ha sido desarrollado por Manuel Naval, Alejandro Martín, Fran Gallego, Alejandro Ramírez Ramos y Guillermo De la cruz.
+Este proyecto ha sido desarrollado por Francisco Gallego Gordillo
 Programas empleados:
 
 - API: IntelliJ idea
@@ -15,6 +15,8 @@ Programas empleados:
 >## Funcionalidad
   Crear una aplicación de la gestión y visualización de los datos referentes a un conjunto de inmobiliarias y sus asociacines.
   Creando peticiones (usando API REST) desde las entidades, asociaciones y aplicando cambios en la forma de mostrar su estructura a través de Dtos para luego mostrar y modificar esos datos realizando a través de angular.
+
+  Como innovación el programa debe de implementar seguridad mediante roles.
   
 
 >## Repositorio de Angular.
@@ -24,28 +26,16 @@ Programas empleados:
   Para ejecutar esta aplicación tras clonar el repositorio, debes ejecutar en la consola de tu IDE, "spring-boot:run", con la configuración de Maven.
 
 
->## Estructura de paquetes
-| Paquete | URL |
-| ------ | ------ |
-| Controllers | [RealEstate/Controllers](https://github.com/miguelcamposedu/g4-realstate-backend/tree/master/realEstate/src/main/java/realEstate/salesianos/triana/dam/realEstate/controllers) |
-| DTOs | [RealEstate/DTOs](https://github.com/miguelcamposedu/g4-realstate-backend/tree/master/realEstate/src/main/java/realEstate/salesianos/triana/dam/realEstate/DTOs) |
-| Models | [RealEstate/Models](https://github.com/miguelcamposedu/g4-realstate-backend/tree/master/realEstate/src/main/java/realEstate/salesianos/triana/dam/realEstate/models) |
-| Repositories | [RealEstate/Repositories](https://github.com/miguelcamposedu/g4-realstate-backend/tree/master/realEstate/src/main/java/realEstate/salesianos/triana/dam/realEstate/repositories)
-| Services | [RealEstate/Services](https://github.com/miguelcamposedu/g4-realstate-backend/tree/master/realEstate/src/main/java/realEstate/salesianos/triana/dam/realEstate/services)
-| Util | [RealEstate/Utils](https://github.com/miguelcamposedu/g4-realstate-backend/tree/master/realEstate/src/main/java/realEstate/salesianos/triana/dam/realEstate/utils)
-| Config | [RealEstate/Config](https://github.com/miguelcamposedu/g4-realstate-backend/tree/master/realEstate/src/main/java/realEstate/salesianos/triana/dam/realEstate/config)
-
 >## Entidades
-  Contamos con 5 entidades que son:
+  Contamos con 4 entidades que son:
   - Inmobiliaria
   - Vivienda
-  - Propietario 
-  - Interesado
+  - Usuario 
   - Interesa
 
   
 >## Asociaciones
-## ManytoMany con atributos extra ( Vivienda -> Interesa <- Interesado )
+## ManytoMany con atributos extra ( Vivienda -> Interesa <- Usuario )
 
 #### Vivienda
 ```sh
@@ -112,3 +102,12 @@ Hemos creido conveniente que la clase Persona sea abstracta porque dadas las pet
 @MappedSuperclass
 public abstract class Persona 
 ```
+
+
+## Seguridad 
+
+Para implementar la seguridad hemos creado un atributo ENUM llamado rol en la clase usuario, y definimos dentro de este los roles:
+  - ADMIN
+  - PROPIETARIO
+  - GESTOR
+
