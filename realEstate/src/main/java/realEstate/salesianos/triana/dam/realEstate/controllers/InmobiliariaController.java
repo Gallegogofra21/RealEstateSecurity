@@ -23,6 +23,8 @@ import realEstate.salesianos.triana.dam.realEstate.models.Inmobiliaria;
 import realEstate.salesianos.triana.dam.realEstate.services.InmobiliariaService;
 import org.springframework.web.bind.annotation.*;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.Gestores.CreateGestorDto;
+import realEstate.salesianos.triana.dam.realEstate.users.dto.Gestores.CreateGestorInmobiliariaDto;
+import realEstate.salesianos.triana.dam.realEstate.users.dto.Gestores.GetInmobiliariaGestorDto;
 import realEstate.salesianos.triana.dam.realEstate.users.dto.UserDtoConverter;
 import realEstate.salesianos.triana.dam.realEstate.users.model.UserRole;
 import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
@@ -31,6 +33,7 @@ import realEstate.salesianos.triana.dam.realEstate.util.PaginationLinksUtil;
 import realEstate.salesianos.triana.dam.realEstate.services.ViviendaService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -145,19 +148,25 @@ public class InmobiliariaController {
     }
 
     @PostMapping("/{id}/gestor")
-    public ResponseEntity<CreateGestorDto> añadirGestor (@PathVariable("id") Long id, @RequestBody Inmobiliaria inmobiliaria, @AuthenticationPrincipal Usuario usuario) {
-        Usuario saved = userEntityService.save(usuario);
-
-        if (usuario.getRol().equals(UserRole.GESTOR)) {
-            Optional<Inmobiliaria> inmobiliariaOptional = inmobiliariaService.findById(id);
+    public ResponseEntity<GetInmobiliariaGestorDto> añadirGestor (@PathVariable("id") Long id, @RequestBody CreateGestorInmobiliariaDto dto, @AuthenticationPrincipal Usuario usuario) {
+        Optional<Inmobiliaria> inmobiliariaOptional = inmobiliariaService.findById(id);
+        if(inmobiliariaOptional.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }else if (usuario.getRol().equals(UserRole.GESTOR) && inmobiliariaOptional.get().getId().equals(usuario.getInmobiliaria().getId())){
+            Inmobiliaria inmobiliaria = inmobiliariaOptional.get();
             Usuario gestor = Usuario.builder()
-                    .inmobiliaria(inmobiliaria)
+                    .id(dto.getIdGestor())
                     .build();
-            userEntityService.save(gestor);
-            CreateGestorDto dto = userDtoConverter.convertUsuarioToGestorDto(usuario);
-            return ResponseEntity.status(HttpStatus.CREATED).body(dto);
-        } else {
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            Optional<Usuario> usuarioOptional = userEntityService.findById(dto.getIdGestor());
+            Usuario data = usuarioOptional.get();
+            data.addInmobiliaria(inmobiliaria);
+            userEntityService.save(data);
+            inmobiliariaService.save(inmobiliaria);
+            GetInmobiliariaGestorDto iDto = inmobiliariaDtoConverter.inmobiliariaToGetInmobiliariaGestorDto(inmobiliaria, gestor);
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(iDto);
+        }else {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }
 }

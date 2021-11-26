@@ -229,7 +229,7 @@ public class ViviendaController {
 
     }
 
-    @Operation(summary = "Se añade a una vivienda existente un interesado existente")
+    /*@Operation(summary = "Se añade a una vivienda existente un interesado existente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
             description = "Se añade correctamente el interesado a la vivienda",
@@ -266,7 +266,7 @@ public class ViviendaController {
         }
 
 
-    }
+    }*/
 
     @Operation(summary = "Se añade una inmobiliaria existente a una vivienda existente")
     @ApiResponses(value = {
@@ -390,17 +390,19 @@ public class ViviendaController {
                     description = "No se ha encontrado una vivienda con el id aportado.",
                     content = @Content),
     })
-    @DeleteMapping("/{id1}/meInteresa/{id2}")
+    @DeleteMapping("/{id1}/meInteresa")
     @CrossOrigin
-    public ResponseEntity<?> deleteInteresDeInteresado(@PathVariable Long id1,@PathVariable Long id2) {
+    public ResponseEntity<?> deleteInteresDeInteresado(@PathVariable Long id, @AuthenticationPrincipal Usuario usuario) {
 
-        if (viviendaService.findById(id1).isEmpty() || interesadoService.findById(id2).isEmpty() || interesaService.findByInteresaPk(id1,id2)==null) { //el método findByInteresaService debería no puede acceder al método isEmpty().
+        Optional<Usuario> interesado = interesadoService.findById(id);
+        if (viviendaService.findById(id).isEmpty() || interesaService.findByInteresaPk(id,usuario.getId())==null) { //el método findByInteresaService debería no puede acceder al método isEmpty().
             return ResponseEntity.notFound().build();
 
-        } else {
-            interesaService.eliminarInteresaPorPk(id1,id2);
+        } else if(interesado.get().getRol().equals(usuario.getRol()) && interesado.get().getId().equals(usuario.getId())){
+            interesaService.eliminarInteresaPorPk(id,usuario.getId());
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
+        return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
     }
 
 }

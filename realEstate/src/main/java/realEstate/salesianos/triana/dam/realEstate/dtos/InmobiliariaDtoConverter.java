@@ -2,6 +2,8 @@ package realEstate.salesianos.triana.dam.realEstate.dtos;
 
 import org.springframework.stereotype.Component;
 import realEstate.salesianos.triana.dam.realEstate.models.Inmobiliaria;
+import realEstate.salesianos.triana.dam.realEstate.users.dto.Gestores.GetInmobiliariaGestorDto;
+import realEstate.salesianos.triana.dam.realEstate.users.model.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,5 +50,19 @@ public class InmobiliariaDtoConverter {
         result.setAvatar(i.getAvatar());
         result.setTelefono(i.getTelefono());
         return result;
+    }
+
+    public GetInmobiliariaGestorDto inmobiliariaToGetInmobiliariaGestorDto(Inmobiliaria i, Usuario u){
+        List<String> nombreGestores = new ArrayList<>();
+        for(int j = 0; j < i.getGestores().size(); j++){
+            nombreGestores.add(i.getGestores().get(j).getNombre());
+        }
+
+        return GetInmobiliariaGestorDto.builder()
+                .id(i.getId())
+                .nombre(i.getNombre())
+                .avatar(i.getAvatar())
+                .idGestor(u.getId())
+                .build();
     }
 }
