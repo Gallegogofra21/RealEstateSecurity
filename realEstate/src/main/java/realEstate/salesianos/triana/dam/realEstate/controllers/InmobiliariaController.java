@@ -149,6 +149,7 @@ public class InmobiliariaController {
 
     @PostMapping("/{id}/gestor")
     public ResponseEntity<GetInmobiliariaGestorDto> añadirGestor (@PathVariable("id") Long id, @RequestBody CreateGestorInmobiliariaDto dto, @AuthenticationPrincipal Usuario usuario) {
+        // TODO La mayoría de este código es lógica de negocio, y debería estar en los servicios.
         Optional<Inmobiliaria> inmobiliariaOptional = inmobiliariaService.findById(id);
         if(inmobiliariaOptional.isEmpty()){
             return ResponseEntity.notFound().build();

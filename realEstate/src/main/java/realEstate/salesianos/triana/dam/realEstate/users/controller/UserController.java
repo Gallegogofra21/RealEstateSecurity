@@ -55,6 +55,7 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         else
             return ResponseEntity.ok(userDtoConverter.convertUsuarioToNewUser(saved));
+            // TODO El registro de usuario devuelve las dos contraseñas encriptadas :(((((((
     }
 
     @PostMapping("/auth/register/gestor")

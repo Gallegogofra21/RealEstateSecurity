@@ -30,7 +30,7 @@ public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long id; // TODO Se ha pedido implementar todo el proyecto usando los usuarios como identificador un UUID
 
     private String nombre;
     private String apellidos;
@@ -50,7 +50,7 @@ public class Usuario implements UserDetails {
     @JoinColumn(name = "inmobiliaria_id", foreignKey = @ForeignKey(name = "PK_USER_INMOBILIARIA"), nullable = true)
     private Inmobiliaria inmobiliaria;
 
-    @OneToMany(mappedBy = "propietario", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "propietario", fetch = FetchType.EAGER) // TODO Dobby está triste cuando se usa el fetch de tipo EAGER
     private List<Vivienda> viviendas = new ArrayList<>();
 
     @Builder.Default

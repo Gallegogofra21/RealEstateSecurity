@@ -14,4 +14,6 @@ public class RealEstateApplication {
 		SpringApplication.run(RealEstateApplication.class, args);
 	}
 
+	// TODO El fichero de import.sql está vacío, y eso produce muchas dificultades para probar la aplicación
+
 }

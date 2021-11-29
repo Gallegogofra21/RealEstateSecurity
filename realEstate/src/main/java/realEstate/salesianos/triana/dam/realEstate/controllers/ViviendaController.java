@@ -207,6 +207,8 @@ public class ViviendaController {
     })
     @PostMapping("/{id}/meinteresa")
     public ResponseEntity<GetInteresadoInteresaDto> createInteresado(@PathVariable("id") Long id,CreateInteresadoInteresaDto dto, @AuthenticationPrincipal Usuario usuario){
+        // TODO La mayoría de este código es lógica de negocio y debería estar en los servicios.
+
         if(viviendaService.findById(id).isEmpty()){
             return ResponseEntity.notFound().build();
         }else if(!usuario.getRol().equals(UserRole.PROPIETARIO)){
@@ -283,7 +285,7 @@ public class ViviendaController {
     })
     @PostMapping("/{id1}/inmobiliaria/{id2}")
     public ResponseEntity<?> addViviendaAInmobiliaria ( @PathVariable Long id1, @PathVariable Long id2, @AuthenticationPrincipal Usuario usuario){
-        Usuario propietario = viviendaService.findById(id1).get().getPropietario();
+        Usuario propietario = viviendaService.findById(id1).get().getPropietario(); // TODO Esta línea produce un error 500
         Optional<Vivienda> optionalVivienda=viviendaService.findById(id1);
         Optional<Inmobiliaria> optionalInmobiliaria= inmobiliariaService.findById(id2);
         if (optionalInmobiliaria.isEmpty() || optionalVivienda.isEmpty()){
