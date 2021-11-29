@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -404,5 +405,26 @@ public class ViviendaController {
         }
         return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
     }
+
+    @GetMapping("/propietario")
+    public ResponseEntity<?> findAllViviendasPropietario(@AuthenticationPrincipal Usuario usuario) {
+
+        if(viviendaService.findAllViviendasFromUsers(usuario.getId(usuario.getI))){
+            return ResponseEntity.notFound().build();
+        }else {
+            List<Vivienda> viviendaOptional = viviendaService.findAllViviendasFromUsers(usuario.getId());
+            List<GetViviendaDto> result = viviendaOptional.stream().map(viviendaDtoConverter::viviendaToGetViviendaDto).collect(Collectors.toList());
+            return ResponseEntity.ok().body(result);
+        }
+    }
+
+    /*@GetMapping("/interesa")
+    public ResponseEntity<?> findAllViviendasInteresa(@AuthenticationPrincipal Usuario usuario){
+        Optional<Usuario> interesado = propietarioService.findById(usuario.getId());
+        if(){
+
+        }
+
+    }*/
 
 }
