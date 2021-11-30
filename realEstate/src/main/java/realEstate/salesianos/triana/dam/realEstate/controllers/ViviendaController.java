@@ -406,25 +406,30 @@ public class ViviendaController {
         return new ResponseEntity<String>(HttpStatus.FORBIDDEN);
     }
 
-    @GetMapping("/propietario")
-    public ResponseEntity<?> findAllViviendasPropietario(@AuthenticationPrincipal Usuario usuario) {
 
-        if(viviendaService.findAllViviendasFromUsers(usuario.getId(usuario.getI))){
+    @GetMapping("/interesa")
+    public ResponseEntity<?> buscarViviendaMeInteresa (
+            @RequestParam("ciudad") Optional<String> ciudad,
+            @RequestParam("precioMax") Optional<Float> precioMax,
+            @RequestParam("precioMin") Optional<Float> precioMin,
+            @RequestParam("provincia") Optional<String> provincia,
+            @RequestParam("tamanio") Optional<Float> tamanio,
+            @RequestParam("numHabs") Optional<Float> numHabs,
+            @RequestParam("tipo") Optional<Tipo> tipo,
+            @AuthenticationPrincipal Usuario usuario,
+            Pageable pageable, HttpServletRequest request) {
+        Page<Vivienda> data = viviendaService.findByArgs(ciudad,precioMax,precioMin,provincia,tamanio,numHabs,tipo, pageable);
+
+        if (data.isEmpty()) {
             return ResponseEntity.notFound().build();
-        }else {
-            List<Vivienda> viviendaOptional = viviendaService.findAllViviendasFromUsers(usuario.getId());
-            List<GetViviendaDto> result = viviendaOptional.stream().map(viviendaDtoConverter::viviendaToGetViviendaDto).collect(Collectors.toList());
-            return ResponseEntity.ok().body(result);
+        } else {
+            Page<GetViviendaDto> result = data.map(viviendaDtoConverter::viviendaToGetViviendaDto);
+
+            UriComponentsBuilder uriBuilder =
+                    UriComponentsBuilder.fromHttpUrl(request.getRequestURL().toString());
+
+            return ResponseEntity.ok().header("link", paginationLinksUtil.createLinkHeader(result, uriBuilder)).body(result);
         }
     }
-
-    /*@GetMapping("/interesa")
-    public ResponseEntity<?> findAllViviendasInteresa(@AuthenticationPrincipal Usuario usuario){
-        Optional<Usuario> interesado = propietarioService.findById(usuario.getId());
-        if(){
-
-        }
-
-    }*/
 
 }

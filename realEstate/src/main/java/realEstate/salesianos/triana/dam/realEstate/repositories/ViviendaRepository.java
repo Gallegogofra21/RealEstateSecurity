@@ -35,9 +35,5 @@ public interface ViviendaRepository extends JpaRepository<Vivienda,Long>, JpaSpe
 
     //List<Vivienda> findTop10ByOrderByInteresesDesc();
 
-    @Query(value = """
-            SELECT * FROM VIVIENDA 
-            WHERE USUARIO_ID = usuarioId
-            """, nativeQuery = true)
-    List<Vivienda> findAllViviendasFromUser(Long usuarioId);
+
 }

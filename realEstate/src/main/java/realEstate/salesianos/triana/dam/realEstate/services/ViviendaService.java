@@ -32,9 +32,6 @@ public class ViviendaService extends BaseService<Vivienda,Long,ViviendaRepositor
     }
     public List<Vivienda> findAllByInteresas (int limit) {
         return repositorio.findAllTopViviendas(limit);}
-    public List<Vivienda> findAllViviendasFromUsers(Long usuarioId){
-        return repositorio.findAllViviendasFromUser(usuarioId);
-    }
 
     //Método para generar la especificación de filtrado.
 

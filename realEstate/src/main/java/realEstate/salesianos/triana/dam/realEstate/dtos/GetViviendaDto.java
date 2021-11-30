@@ -18,9 +18,9 @@ public class GetViviendaDto {
     private String direccion;
     private int numHabitaciones;
     private int metrosCuadrados;
-    private int meInteresas;
+    private boolean meInteresas;
 
-    public GetViviendaDto(Long id, String titulo, double precio, String provincia, String avatar, String tipo, String ciudad, String direccion, int numHabitaciones, int metrosCuadrados, int meInteresas) {
+    public GetViviendaDto(Long id, String titulo, double precio, String provincia, String avatar, String tipo, String ciudad, String direccion, int numHabitaciones, int metrosCuadrados, boolean meInteresas) {
         this.id = id;
         this.titulo = titulo;
         this.precio = precio;
@@ -34,6 +34,6 @@ public class GetViviendaDto {
         this.meInteresas = meInteresas;
     }
 
-    public GetViviendaDto(Long id, String titulo, double precio, String avatar, String tipo, String ciudad, String direccion, int numHabitaciones, int metrosCuadrados, int meInteresas) {
+    public GetViviendaDto(Long id, String titulo, double precio, String avatar, String tipo, String ciudad, String direccion, int numHabitaciones, int metrosCuadrados, boolean meInteresas) {
     }
 }
